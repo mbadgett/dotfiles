@@ -1,1 +1,222 @@
+[github]
+	user = just-joshing
+[push]
+	default = current
+[alias]
+	# ALIAS - Lists Git aliases
+	alias = !git config -l | grep alias | cut -c 7-
 
+
+	# Config
+	gconfig = config --global
+
+
+	# Status
+	s = status -sb
+
+
+	# Checkout
+	co = checkout
+	cob = checkout -b
+	com = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git checkout origin/$DEFAULT_BRANCH; \
+	}; f"
+	cobm = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git checkout -b $1 origin/$DEFAULT_BRANCH; \
+	}; f"
+	cobu = "!f() { \
+		UPSTREAM=`git status -sb | cut -d \\. -f 4 | cut -d ' ' -f 1`; \
+		git checkout -b $1 $UPSTREAM; \
+	}; f"
+	cobo = "!f() { \
+		git checkout -b $1 origin/$1; \
+	}; f"
+
+
+	# Branch
+	b = branch
+	bu = branch -u
+	bum = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git branch -u origin/$DEFAULT_BRANCH; \
+	}; f"
+	buu = "!f() { \
+		CURRENT_BRANCH=`git branch --show-current`; \
+		git branch -u origin/$CURRENT_BRANCH; \
+	}; f"
+	bd = branch -D
+	br = branch -r
+	brd = branch -rd
+	ba = branch -a
+	bm = branch -m
+	bv = branch -v
+	bvv = branch -vv
+
+
+	# Fetch
+	f = fetch
+	fo = fetch origin
+	fm = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git fetch origin $DEFAULT_BRANCH; \
+	}; f"
+	fu = "!f() { \
+		UPSTREAM=`git status -sb | cut -d \\. -f 4 | cut -d ' ' -f 1`; \
+		REMOTE=`echo ${UPSTREAM} | cut -d / -f 1`; \
+		BRANCH=`echo ${UPSTREAM} | cut -d / -f 2-`; \
+		git fetch $REMOTE $BRANCH; \
+	}; f"
+	updatedefault = remote set-head origin -a
+
+
+	# Add
+	a = add
+	aa = add -A
+
+
+	# Commit
+	c = commit
+	ca = "!git add -A && git commit"
+	cm = commit -m
+	cam = "!git add -A && git commit -m"
+	fixup = commit --amend --no-edit
+	fixupall = "!git add -A && git commit --amend --no-edit"
+	amend = commit --amend
+	amendall = "!git add -A && git commit --amend"
+
+
+	# Stash
+	sl = stash list
+	ss = stash save
+	sp = stash pop
+	sa = stash apply
+	sd = stash drop
+	sshow = stash show -p
+
+
+	# Cherry-Pick
+	cp = cherry-pick
+	cpc = cherry-pick --continue
+	cpa = cherry-pick --abort
+
+
+	# Remote
+	rms = remote show
+	rmp = remote prune
+	rmpo = remote prune origin
+
+
+	# Rebase
+	rb = rebase
+	rbi = rebase -i
+	rbc = rebase --continue
+	rba = rebase --abort
+	rbs = rebase --skip
+	rbm = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git rebase origin/$DEFAULT_BRANCH; \
+	}; f"
+
+
+	# Merge
+	m = merge
+	mm = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git merge origin/$DEFAULT_BRANCH; \
+	}; f"
+	mc = merge --continue
+	ma = merge --abort
+
+
+	# Mergetool
+	mt = mergetool
+
+
+	# Push
+	pu = push
+	puf = push --force
+	puo = push origin
+	puof = push origin --force
+
+
+	# Pull
+	pm = pull --no-rebase
+	pmm = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git pull --no-rebase origin $DEFAULT_BRANCH; \
+	}; f"
+	pmo = pull --no-rebase origin
+	pr = pull --rebase
+	prm = "!f() { \
+		DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+		git pull --rebase origin $DEFAULT_BRANCH; \
+	}; f"
+	pro = pull --rebase origin
+	pru = "!f() { \
+		UPSTREAM=`git status -sb | cut -d \\. -f 4 | cut -d ' ' -f 1`; \
+		REMOTE=`echo ${UPSTREAM} | cut -d / -f 1`; \
+		BRANCH=`echo ${UPSTREAM} | cut -d / -f 2-`; \
+		git pull --rebase $REMOTE $BRANCH; \
+	}; f"
+
+
+	# Log
+	l = log
+	ls = log --pretty=format:%C(yellow)%h\\ %Creset%s\\ %Cgreen(%cr)\\ %C(cyan)[%cn]%Cred%d
+	ll = log --pretty=format:%C(yellow)%h\\ %Creset%s\\ %Cgreen(%cr)\\ %C(cyan)[%cn]%Cred%d --stat
+	lg = log --pretty=format:%C(yellow)%h\\ %Creset%s\\ %Cgreen(%cr)\\ %C(cyan)[%cn]%Cred%d%n --graph
+
+
+	# Worktree
+	wt = worktree
+	wta = worktree add
+	wtl = worktree list
+
+
+	# RS - Reset (mixed)
+	# The opposite of 'git add'. Undoes commits and leaves the files unchanged and unstaged.
+	# Usage:
+	#   'git rs'          - Unstages any staged files
+	#   'git rs <number>' - Rolls back the HEAD ref <number> commits and leaves affected files unchanged and unstaged
+	rs = "!f() { if [ $# -eq 0 ]; then git reset; elif [[ $1 =~ ^[0-9]+$ ]]; then git reset HEAD~$1; else git reset $1; fi }; f"
+
+	# RSS - Reset (soft)
+	# Undoes commits and leaves the files unchanged and staged for commit
+	# Usage:
+	#   'git rss <number>' - Rolls back the HEAD ref <number> commits and leaves affected files unchanged and staged
+	rss = "!f() { if [ $# -eq 0 ]; then echo 'Usage: git rss <number>'; elif [[ $1 =~ ^[0-9]+$ ]]; then git reset --soft HEAD~$1; else git reset --soft $1; fi }; f"
+
+	# RSH - Reset (hard)
+	# Undoes commits and resets files to how they were before the commits
+	# Usage:
+	#   'git rsh'          - Discards local changes
+	#   'git rsh <number>' - Discards local changes and rolls back the HEAD ref <number> commits
+	rsh = "!f() { if [ $# -eq 0 ]; then git reset --hard; elif [[ $1 =~ ^[0-9]+$ ]]; then git reset --hard HEAD~$1; else git reset --hard $1; fi }; f"
+
+
+	# DT - Directory Diff Tool
+	# Performs a directory diff in configured diff tool
+	# Usage:
+	#   'git dt'          - Directory diffs the local uncommitted changes in configured diff tool
+	#   'git dt <number>' - Directory diffs the changes of the last <number> commits (excludes local uncommitted changes)
+	dt = "!f() { \
+		if [ $# -eq 0 ]; then \
+			git difftool --dir-diff; \
+		else git difftool --dir-diff HEAD~$1 HEAD; \
+		fi \
+	}; f"
+
+
+	# CF - Changed Files
+	# Lists the files that have changed
+	# Usage:
+	#   'git cf'          - Lists the uncommitted, tracked files that have changed
+	#   'git cf <number>' - Lists the files changed in the last <number> commits
+	cf = "!f() { \
+		if [ $# -eq 0 ]; then \
+			git diff --ignore-space-at-eol --color-words --name-only; \
+		else git diff --ignore-space-at-eol --color-words --name-only HEAD~$1 HEAD; \
+		fi \
+	}; f"
