@@ -15,34 +15,34 @@ git config --global alias.s "status -sb"
 # Checkout
 git config --global alias.co "checkout"
 git config --global alias.cob "checkout -b"
-git config --global alias.com "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.com '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git checkout origin/$DEFAULT_BRANCH; \
-}; f"
-git config --global alias.cobm "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+}; f'
+git config --global alias.cobm '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git checkout -b $1 origin/$DEFAULT_BRANCH; \
-}; f"
-git config --global alias.cobu "!f() { \
+}; f'
+git config --global alias.cobu '!f() { \
     UPSTREAM=`git status -sb | cut -d \\. -f 4 | cut -d ' ' -f 1`; \
     git checkout -b $1 $UPSTREAM; \
-}; f"
-git config --global alias.cobo "!f() { \
+}; f'
+git config --global alias.cobo '!f() { \
     git checkout -b $1 origin/$1; \
-}; f"
+}; f'
 
 
 # Branch
 git config --global alias.b "branch"
 git config --global alias.bu "branch -u"
-git config --global alias.bum "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.bum '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git branch -u origin/$DEFAULT_BRANCH; \
-}; f"
-git config --global alias.buu "!f() { \
+}; f'
+git config --global alias.buu '!f() { \
     CURRENT_BRANCH=`git branch --show-current`; \
     git branch -u origin/$CURRENT_BRANCH; \
-}; f"
+}; f'
 git config --global alias.bd "branch -D"
 git config --global alias.br "branch -r"
 git config --global alias.brd "branch -rd"
@@ -55,16 +55,16 @@ git config --global alias.bvv "branch -vv"
 # Fetch
 git config --global alias.f "fetch"
 git config --global alias.fo "fetch origin"
-git config --global alias.fm "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.fm '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git fetch origin $DEFAULT_BRANCH; \
-}; f"
-git config --global alias.fu "!f() { \
+}; f'
+git config --global alias.fu '!f() { \
     UPSTREAM=`git status -sb | cut -d \\. -f 4 | cut -d ' ' -f 1`; \
     REMOTE=`echo ${UPSTREAM} | cut -d / -f 1`; \
     BRANCH=`echo ${UPSTREAM} | cut -d / -f 2-`; \
     git fetch $REMOTE $BRANCH; \
-}; f"
+}; f'
 git config --global alias.updatedefault "remote set-head origin -a"
 
 
@@ -111,18 +111,18 @@ git config --global alias.rbi "rebase -i"
 git config --global alias.rbc "rebase --continue"
 git config --global alias.rba "rebase --abort"
 git config --global alias.rbs "rebase --skip"
-git config --global alias.rbm "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.rbm '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git rebase origin/$DEFAULT_BRANCH; \
-}; f"
+}; f'
 
 
 # Merge
 git config --global alias.m "merge"
-git config --global alias.mm "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.mm '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git merge origin/$DEFAULT_BRANCH; \
-}; f"
+}; f'
 git config --global alias.mc "merge --continue"
 git config --global alias.ma "merge --abort"
 
@@ -140,23 +140,23 @@ git config --global alias.puof "push origin --force"
 
 # Pull
 git config --global alias.pm "pull --no-rebase"
-git config --global alias.pmm "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.pmm '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git pull --no-rebase origin $DEFAULT_BRANCH; \
-}; f"
+}; f'
 git config --global alias.pmo "pull --no-rebase origin"
 git config --global alias.pr "pull --rebase"
-git config --global alias.prm "!f() { \
-    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`; \
+git config --global alias.prm '!f() { \
+    DEFAULT_BRANCH=`git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"`; \
     git pull --rebase origin $DEFAULT_BRANCH; \
-}; f"
+}; f'
 git config --global alias.pro "pull --rebase origin"
-git config --global alias.pru "!f() { \
+git config --global alias.pru '!f() { \
     UPSTREAM=`git status -sb | cut -d \\. -f 4 | cut -d ' ' -f 1`; \
     REMOTE=`echo ${UPSTREAM} | cut -d / -f 1`; \
     BRANCH=`echo ${UPSTREAM} | cut -d / -f 2-`; \
     git pull --rebase $REMOTE $BRANCH; \
-}; f"
+}; f'
 
 
 # Log
@@ -177,20 +177,20 @@ git config --global alias.wtl "worktree list"
 # Usage:
 #   'git rs'          - Unstages any staged files
 #   'git rs <number>' - Rolls back the HEAD ref <number> commits and leaves affected files unchanged and unstaged
-git config --global alias.rs "!f() { if [ $# -eq 0 ]; then git reset; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset HEAD~$1; else git reset $1; fi }; f"
+git config --global alias.rs '!f() { if [ $# -eq 0 ]; then git reset; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset HEAD~$1; else git reset $1; fi }; f'
 
 # RSS - Reset (soft)
 # Undoes commits and leaves the files unchanged and staged for commit
 # Usage:
 #   'git rss <number>' - Rolls back the HEAD ref <number> commits and leaves affected files unchanged and staged
-git config --global alias.rss "!f() { if [ $# -eq 0 ]; then echo 'Usage: git rss <number>'; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset --soft HEAD~$1; else git reset --soft $1; fi }; f"
+git config --global alias.rss '!f() { if [ $# -eq 0 ]; then echo 'Usage: git rss <number>'; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset --soft HEAD~$1; else git reset --soft $1; fi }; f'
 
 # RSH - Reset (hard)
 # Undoes commits and resets files to how they were before the commits
 # Usage:
 #   'git rsh'          - Discards local changes
 #   'git rsh <number>' - Discards local changes and rolls back the HEAD ref <number> commits
-git config --global alias.rsh "!f() { if [ $# -eq 0 ]; then git reset --hard; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset --hard HEAD~$1; else git reset --hard $1; fi }; f"
+git config --global alias.rsh '!f() { if [ $# -eq 0 ]; then git reset --hard; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset --hard HEAD~$1; else git reset --hard $1; fi }; f'
 
 
 # DT - Directory Diff Tool
@@ -198,12 +198,12 @@ git config --global alias.rsh "!f() { if [ $# -eq 0 ]; then git reset --hard; el
 # Usage:
 #   'git dt'          - Directory diffs the local uncommitted changes in configured diff tool
 #   'git dt <number>' - Directory diffs the changes of the last <number> commits (excludes local uncommitted changes)
-git config --global alias.dt "!f() { \
+git config --global alias.dt '!f() { \
     if [ $# -eq 0 ]; then \
         git difftool --dir-diff; \
     else git difftool --dir-diff HEAD~$1 HEAD; \
     fi \
-}; f"
+}; f'
 
 
 # CF - Changed Files
@@ -211,9 +211,9 @@ git config --global alias.dt "!f() { \
 # Usage:
 #   'git cf'          - Lists the uncommitted, tracked files that have changed
 #   'git cf <number>' - Lists the files changed in the last <number> commits
-git config --global alias.cf "!f() { \
+git config --global alias.cf '!f() { \
     if [ $# -eq 0 ]; then \
         git diff --ignore-space-at-eol --color-words --name-only; \
     else git diff --ignore-space-at-eol --color-words --name-only HEAD~$1 HEAD; \
     fi \
-}; f"
+}; f'
