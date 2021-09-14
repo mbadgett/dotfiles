@@ -1,4 +1,5 @@
 #!/bin/bash
+export GH_USERNAME=just-joshing
 
 ./setup-git.sh
 
