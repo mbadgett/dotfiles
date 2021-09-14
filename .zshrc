@@ -36,7 +36,11 @@ export PATH="${GOPATH}/bin:${GOROOT}/bin:$PATH"
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias ls="ls -G"
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  alias ls="ls --color"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  alias ls="ls -G"
+fi
 alias g='git'
 alias zedit='vim ~/.zshrc'
 alias zreload='source ~/.zshrc'
