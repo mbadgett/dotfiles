@@ -44,4 +44,4 @@ fi
 alias g='git'
 alias zedit='vim ~/.zshrc'
 alias zreload='source ~/.zshrc'
-alias work='cd /workspaces && cd $(ls -d */ | head -n 1)'
+alias work='cd /workspaces && cd $(command ls -d */ | head -n 1)'
