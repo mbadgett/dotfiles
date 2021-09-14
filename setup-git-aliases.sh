@@ -104,6 +104,9 @@ git config --global alias.rms "remote show"
 git config --global alias.rmp "remote prune"
 git config --global alias.rmpo "remote prune origin"
 
+git config --global alias.rmsh "remote set-head"
+git config --global alias.rmsho "remote set-head origin"
+
 
 # Rebase
 git config --global alias.rb "rebase"
