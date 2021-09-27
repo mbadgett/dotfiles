@@ -40,7 +40,7 @@ git config --global alias.bum '!f() { \
     git branch -u origin/$DEFAULT_BRANCH; \
 }; f'
 git config --global alias.buu '!f() { \
-    CURRENT_BRANCH=`git branch --show-current`; \
+    CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`; \
     git branch -u origin/$CURRENT_BRANCH; \
 }; f'
 git config --global alias.bd "branch -D"
