@@ -180,20 +180,44 @@ git config --global alias.wtl "worktree list"
 # Usage:
 #   'git rs'          - Unstages any staged files
 #   'git rs <number>' - Rolls back the HEAD ref <number> commits and leaves affected files unchanged and unstaged
-git config --global alias.rs '!f() { if [ $# -eq 0 ]; then git reset; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset HEAD~$1; else git reset $1; fi }; f'
+git config --global alias.rs '!f() { \
+    if [ $# -eq 0 ]; then \
+        git reset; \
+    elif [[ $1 =~ ^[0-9]+$ ]]; then \
+        git reset HEAD~$1; \
+    else \
+        git reset $1; \
+    fi \
+}; f'
 
 # RSS - Reset (soft)
 # Undoes commits and leaves the files unchanged and staged for commit
 # Usage:
 #   'git rss <number>' - Rolls back the HEAD ref <number> commits and leaves affected files unchanged and staged
-git config --global alias.rss '!f() { if [ $# -eq 0 ]; then echo "Usage: git rss <number>"; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset --soft HEAD~$1; else git reset --soft $1; fi }; f'
+git config --global alias.rss '!f() { \
+    if [ $# -eq 0 ]; then \
+        echo "Usage: git rss <number>"; \
+    elif [[ $1 =~ ^[0-9]+$ ]]; then \
+        git reset --soft HEAD~$1; \
+    else \
+        git reset --soft $1; \
+    fi \
+}; f'
 
 # RSH - Reset (hard)
 # Undoes commits and resets files to how they were before the commits
 # Usage:
 #   'git rsh'          - Discards local changes
 #   'git rsh <number>' - Discards local changes and rolls back the HEAD ref <number> commits
-git config --global alias.rsh '!f() { if [ $# -eq 0 ]; then git reset --hard; elif [[ $git config --global alias.1~ ^[0-9]+$ ]]; then git reset --hard HEAD~$1; else git reset --hard $1; fi }; f'
+git config --global alias.rsh '!f() { \
+    if [ $# -eq 0 ]; then \
+        git reset --hard; \
+    elif [[ $1 =~ ^[0-9]+$ ]]; then \
+        git reset --hard HEAD~$1; \
+    else \
+        git reset --hard $1; \
+    fi \
+}; f'
 
 
 # DT - Directory Diff Tool
