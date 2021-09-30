@@ -26,13 +26,6 @@ setopt HISTIGNOREDUPS
 
 export GH_USERNAME=just-joshing
 
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
-
-export GOPATH="${HOME}/go"
-export GOROOT="/usr/local/go"
-export PATH="${GOPATH}/bin:${GOROOT}/bin:$PATH"
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
