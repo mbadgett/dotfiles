@@ -1,4 +1,4 @@
-export GH_USERNAME=just-joshing
+export GH_USERNAME=mbadgett
 
 alias ..='cd ..'
 alias ...='cd ../..'
