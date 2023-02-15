@@ -24,7 +24,7 @@ autoload -Uz compinit; compinit;
 setopt AUTOCD
 setopt HISTIGNOREDUPS
 
-export GH_USERNAME=just-joshing
+export GH_USERNAME=mbadgett
 
 alias ..='cd ..'
 alias ...='cd ../..'
