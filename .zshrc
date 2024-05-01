@@ -5,36 +5,55 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source ~/.powerlevel10k/powerlevel10k.zsh-theme
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export GPG_TTY=`tty`
 
-# Personal settings
-
-function expand-alias() {
-        zle _expand_alias
-        zle self-insert
+function code {
+    if [[ $# = 0 ]]
+    then
+        open -a "Visual Studio Code"
+    else
+        local argPath="$1"
+        [[ $1 = /* ]] && argPath="$1" || argPath="$PWD/${1#./}"
+        open -a "Visual Studio Code" "$argPath"
+    fi
 }
-zle -N expand-alias
-bindkey -M main ' ' expand-alias
 
 autoload -Uz compinit; compinit;
 
-setopt AUTOCD
-setopt HISTIGNOREDUPS
+export GOPATH="$HOME/.go"
+alias g="git"
+alias c="code"
+eval "$(rbenv init -)"
+alias wtf="spring stop"
+alias rld="source ~/.zshrc"
+alias zedit="code ~/.zshrc"
 
-export GH_USERNAME=mbadgett
+alias hcs="pushd ~/.go/src/github.com/github/hypercredscan"
+alias gh1="pushd ~/github/github"
+alias gh2="pushd ~/github/github2"
+alias tss="pushd ~/github/token-scanning-service"
+alias hs="pushd ~/github/hydro-schemas"
+alias ssp="pushd ~/github/secret-scanning-proto"
+alias ss="pushd ~/github/secret-scanning"
+alias ops="pushd ~/github/ops"
+alias snek="pushd ~/github/snek"
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  alias ls="ls --color"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  alias ls="ls -G"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export GOPROXYUSER="mbadgett"
+export GOPROXYPASS=""
+export GOPROXY="https://${GOPROXYUSER}:${GOPROXYPASS}@octofactory.github.com,https://octofactory.githubapp.com,https://proxy.golang.org,direct"
+export GOPRIVATE=
+export GONOPROXY=
+export GONOSUMDB='github.com/github/*'
+export CISTERN_GITHUB_TOKEN="b4bb135e430f03f50e49e148c5c1972066167e4f"
+export HYDRO_KAFKA_BROKERS="127.0.0.1:9092"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
 fi
-alias g='git'
-alias zedit='vim ~/.zshrc'
-alias zreload='source ~/.zshrc'
-alias work='cd /workspaces && cd $(command ls -d */ | head -n 1)'
+
+plugins=(git ssh-agent)
